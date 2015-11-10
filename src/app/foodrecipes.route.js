@@ -18,7 +18,7 @@
           templateUrl: 'app/sections/about/about.html'
         })
 
-        // Foodlist
+        // Recipes
         .state('main.recipes', {
           url: '/recipes',
           templateUrl: 'app/sections/recipes/recipes.html',
@@ -27,6 +27,13 @@
             authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]
           }
         })
+
+        .state('main.addRecipe', {
+          url: '/addRecipe',
+          templateUrl: 'app/sections/recipes/addRecipe/recipe.add.html',
+          controller: 'AddRecipeController as vm',
+          params: {'recipe': null}
+        })        
       ;
 
       /* The custom "X-Requested-With" is a conventional header sent by browser clients, and it used to be the default in Angular but they took it out in 1.3.0.

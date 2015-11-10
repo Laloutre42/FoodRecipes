@@ -8,7 +8,7 @@
 
     <div class="panel-body">
       <div class="table-responsive">
-        <table ng-table="vm.recipeTable" class="table table-condensed row-border table-hover v-middle" ng-show="($data.length > 0)">
+        <table ng-table="vm.recipesTable" class="table table-condensed row-border table-hover v-middle" ng-show="($data.length > 0)">
           <tbody>
           <tr ng-repeat="recipe in $data">
             <td class="rowClick" ng-click="vm.navigateToDetailrecipe(recipe)" sortable="'author'" data-title="'Author'">{{recipe.user.name}}</td>

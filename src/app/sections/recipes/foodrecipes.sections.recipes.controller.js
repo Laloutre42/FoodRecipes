@@ -6,13 +6,13 @@
         function ($log, $filter, $stateParams, $state, ngTableParams, RecipesService, SessionService) {
 
       var vm = this;
-      vm.addFoodList = addFoodList;
-      vm.navigateToDetailFoodList = navigateToDetailFoodList;
-      vm.removeFoodList = removeFoodList;
+      vm.addRecipe = addRecipe;
+      vm.navigateToDetailRecipe = navigateToDetailRecipe;
+      vm.removeRecipe = removeRecipe;
       vm.user = SessionService.getUser();
 
       // ng table to display data
-      vm.recipeslistTable = new ngTableParams({
+      vm.recipesTable = new ngTableParams({
         page: 1,
         count: 10
       }, {
@@ -22,37 +22,28 @@
         }
       });
 
-      // Open a modal to add a new food list
-      function addFoodList(foodList) {
-        $state.go('main.modal', {foodList: foodList});
+      // Open a modal to add a new recipe
+      function addRecipe(recipe) {
+        $state.go('main.addRecipe', {recipe: recipe});
       }
 
-      // Navigate to the foodlist detail (item list)
-      function navigateToDetailFoodList(foodList) {
-        $state.go('main.itemslist', {foodListId: foodList.id});
+      // Navigate to the recipe detail
+      function navigateToDetailRecipe(recipe) {
+        $state.go('main.itemslist', {recipeId: recipe.id});
       }
 
-      function removeFoodList(foodList) {
-        FoodListService.delete({'id': foodList.id}).$promise.then(function () {
-          vm.foodlistTable.reload();
+      function removeRecipe(recipe) {
+        RecipesService.delete({'id': recipe.id}).$promise.then(function () {
+          vm.recipesTable.reload();
         });
       }
 
-      function getAllFoodList($defer, params) {
+      function getAllRecipes($defer, params) {
 
-        var getFoodListParam;
-        if ($stateParams.type === 'all') {
-          getFoodListParam = FoodListService.query();
-        }
-        else {
-          // Todo to change userId
-          getFoodListParam = FoodListService.getFoodListByUserId({'userId': vm.user.id});
-        }
+        RecipesService.query().$promise.then(function (data) {
+          $log.debug('[getAllRecipes] length is ', data.length);
 
-        getFoodListParam.$promise.then(function (data) {
-          $log.debug('[getAllFoodList] length is ', data.length);
-
-          var orderedData = params.sorting() ? $filter('orderBy')(data, vm.foodlistTable.orderBy()) : data;
+          var orderedData = params.sorting() ? $filter('orderBy')(data, vm.recipesTable.orderBy()) : data;
           $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
           params.total(orderedData.length);
         });

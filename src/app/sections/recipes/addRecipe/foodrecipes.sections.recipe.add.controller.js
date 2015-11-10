@@ -14,13 +14,13 @@
       function ok() {
 
         if (!vm.user){
-          $log.error("[AddFoodlistController] User is undefined!");
+          $log.error("[AddRecipeController] User is undefined!");
           return;
         }
         else{
           vm.foodList.user = vm.user;
 
-          FoodListService.save(vm.foodList).$promise.then(
+          RecipesService.save(vm.foodList).$promise.then(
             function () {
               vm.back();
             });
