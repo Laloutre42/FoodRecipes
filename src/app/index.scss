@@ -1,0 +1,100 @@
+/**
+ *  If you want to override some bootstrap variables, you have to change values here.
+ *  The list of variables are listed here bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_variables.scss
+ */
+$navbar-inverse-link-color: #5AADBB;
+$icon-font-path: "../../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+$fa-font-path: "../../bower_components/components-font-awesome/fonts";
+
+@import "../../bower_components/components-font-awesome/scss/font-awesome.scss";
+
+@import "../assets/styles/mixins";
+
+//@import "../../src/assets/styles/boostrap-theme/simplex/_variables";
+//@import "../../src/assets/styles/boostrap-theme/simplex/_bootswatch";
+
+/**
+ *  Do not remove this comments bellow. It's the markers used by wiredep to inject
+ *  sass dependencies when defined in the bower.json of your dependencies
+ */
+// bower:scss
+// endbower
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+.thumbnail {
+  height: 200px;
+
+  img.pull-right {
+    width: 50px;
+  }
+}
+
+// Perso
+.error {
+  color: #a94442;
+}
+
+// Ng table override
+.ng-table th {
+  text-align: left;
+}
+
+.ng-table th.sortable.sort-desc, .ng-table th.sortable.sort-asc {
+  background-color: inherit;
+}
+
+// Click cursor row
+.rowClick {
+  cursor: pointer;
+}
+
+.twelvePercentWidthRow {
+  width: 12%;
+}
+
+.v-middle > tbody > tr > td {
+  vertical-align: middle;
+}
+
+// Fix nav bar padding
+body {
+  padding-top: 70px;
+}
+
+// show/hide parts of the app during the loading
+html.app-loading {
+  [hidden-when-loading], .hidden-when-loading {
+    display: none !important;
+  }
+}
+
+html:not(.app-loading) {
+  [shown-when-loading], .shown-when-loading {
+    display: none !important;
+  }
+}
+
+#app-loading-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+
+  .app-loading {
+    @include circleLoader(50px);
+  }
+}
+
+/**
+ *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject
+ *  all your sass files automatically
+ */
+// injector
+// endinjector

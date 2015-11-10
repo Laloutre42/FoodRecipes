@@ -1,0 +1,42 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" ui-sref='main.home'>
+        <span></span> foodrecipes
+      </a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
+      <ul class="nav navbar-nav">
+        <li><a ui-sref='main.foodlist({type: "all"})'>{{'key.foodrecipes.components.navbar.directive.browse_the_lists' | translate}}</a></li>
+        <li ng-if="vm.user"><a ui-sref='main.foodlist({type: "mine"})'>{{'key.foodrecipes.components.navbar.directive.my_list' | translate}}</a></li>
+        <!--<li><a ui-sref='main.product'>Product</a></li>-->
+        <li><a ui-sref='main.about' translate>{{'key.foodrecipes.components.navbar.directive.about'}}</a></li>
+      </ul>
+
+      <div class="nav navbar-nav navbar-form navbar-right">
+        <div class="form-group" ng-if="!vm.user">
+          <form method="get" action="/auth/facebook">
+            <button class="btn btn-primary" type="submit"><i class="fa fa-facebook"></i> {{'key.foodrecipes.components.navbar.directive.log_in' | translate}}</button>
+          </form>
+        </div>
+        <div class="form-group" ng-if="!vm.user">
+          <form method="get" action="/auth/google">
+            <button class="btn btn-danger" type="submit"><i class="fa fa-google"></i> {{'key.foodrecipes.components.navbar.directive.log_in' | translate}}</button>
+          </form>
+        </div>
+        <div class="form-group" ng-if="vm.user"><b>{{vm.user.name}}</b></div>
+        <div class="form-group" ng-if="vm.user">
+          <form method="get" action="/api/logout">
+            <button class="btn btn-default" type="submit">{{'key.foodrecipes.components.navbar.directive.log_out' | translate}}</button>
+          </form>
+        </div>
+
+        <div class="form-group">
+          <div language-select-directive></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</nav>

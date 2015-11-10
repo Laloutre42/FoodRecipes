@@ -1,0 +1,11 @@
+{
+  "key.foodrecipes.components.navbar.directive.browse_the_lists": "Voir les listes",
+  "key.foodrecipes.components.navbar.directive.my_list": "Mes listes",
+  "key.foodrecipes.components.navbar.directive.about": "A propos",
+  "key.foodrecipes.components.navbar.directive.log_in": "Connection",
+  "key.foodrecipes.components.navbar.directive.log_out": "Déconnection",
+  "key.foodrecipes.run.your_are_not_allowed": "Vous n'êtes pas autorisé",
+  "key.foodrecipes.run.your_are_not_logged_in": "Vous n'êtes pas loggué",
+  "key.foodrecipes.sections.main.controller.powered_by": "Propulsé par ",
+  "key.foodrecipes.components.languageSelect.directive.language": "Language"
+}

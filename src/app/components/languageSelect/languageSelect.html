@@ -1,0 +1,9 @@
+<div class="language-select" ng-if="vmL.visible">
+  <label>
+    {{"key.foodrecipes.components.languageSelect.directive.language" | translate}}:
+    <select ng-model="vmL.currentLocaleDisplayName"
+            ng-options="localesDisplayName for localesDisplayName in vmL.localesDisplayNames"
+            ng-change="vmL.changeLanguage(vmL.currentLocaleDisplayName)">
+    </select>
+  </label>
+</div>
