@@ -5,34 +5,42 @@
     <span aria-hidden="true">&times;</span>
     <span class="sr-only">Close</span>
   </button>
-  <h4 class="modal-title">Recipe details</h4>
+  <h4 class="modal-title">{{recipe.name}}</h4>
 </div>
 
-  {{recipe.comment}}
-  {{recipe.ingredient}}
 
 <!--Body-->
 <div class="modal-body">
-  <form name="addNewFoodListForm" class="form-horizontal" role="form">
-    <div class="modal-body">
 
-      <!-- Panel table -->
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <div class="table-responsive">
-            <table ng-table="itemDetailTable" class="table bagofood-table-list table-condensed row-border v-middle" ng-show="($data.length > 0)">
-              <tbody>
-              <tr ng-repeat="item in $data">
-                <td sortable="'name'" data-title="'Name'">{{item.name}}</td>
-                <td sortable="'value'" data-title="'Valeur'">{{item.value}}</td>
-              </tr>
-              </tbody>
-            </table>
+  <form name="form" class="form-horizontal" role="form">
 
-          </div>
-        </div>
+    <!--Personne-->
+    <div class="form-group name">
+      <label class="col-sm-2 control-label">Person number</label>
+
+      <div class="col-sm-10">
+        <span>{{recipe.personNumber}}</span>
       </div>
     </div>
+
+    <!--Ingredients-->
+    <div class="form-group name">
+      <label class="col-sm-2 control-label">Ingredients</label>
+
+      <div class="col-sm-10">
+        <div ng-repeat="ingredient in recipe.ingredients">{{ingredient}}</div>
+      </div>
+    </div>
+
+    <!--Comment-->
+    <div class="form-group name">
+      <label class="col-sm-2 control-label">Comment</label>
+
+      <div class="col-sm-10">
+        <span>{{recipe.comment}}</span>
+      </div>
+    </div>
+
   </form>
 </div>
 

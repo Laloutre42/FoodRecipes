@@ -3,13 +3,13 @@
 
 
 angular.module('foodrecipes.sections.recipes.modal.controller', [])
-  .controller('RecipeDetailController', function ($scope, $filter, $modalInstance, $log, ngTableParams, recipe) {
+  .controller('RecipeDetailController', function ($scope, $filter, $uibModalInstance, $log, ngTableParams, recipe) {
 
     $scope.recipe = recipe;
 
     // Cancel modal
     $scope.close = function () {
-      $modalInstance.close();
+      $uibModalInstance .close();
     };
 
   });

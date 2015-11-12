@@ -9,9 +9,10 @@
         <td data-title="'Image'" align="center">
           <img src="{{recipe.imagePath}}">
         </td>
-        <td sortable="'name'" data-title="'Name'">{{recipe.name}}</td>
+        <td sortable="'name'" data-title="'Name'"><span class="recipe-name">{{recipe.name}}</span></td>
         <td sortable="'description'" data-title="'Description'">{{recipe.description}}</td>
         <td sortable="'type'" data-title="'Type'">{{recipe.type}}</td>
+        <td sortable="'duration'" data-title="'Duration'">{{recipe.duration}} min</td>
         <td sortable="'complexity'" data-title="'Complexity'">
           <uib-rating ng-model="recipe.complexity" max="3" readonly="true"></uib-rating>
         </td>
@@ -19,21 +20,21 @@
           <uib-rating ng-model="recipe.result" max="3" readonly="true"></uib-rating>
         </td>
         <td sortable="'done'" data-title="'Done'" align="center">
-          <span ng-if="recipe.done" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-          <span ng-if="!recipe.done" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          <span ng-if="recipe.done" class="glyphicon glyphicon-ok color-green" aria-hidden="true"></span>
+          <span ng-if="!recipe.done" class="glyphicon glyphicon-remove color-red" aria-hidden="true"></span>
         </td>
         <td sortable="'todo'" data-title="'Todo'" align="center">
-          <span ng-if="recipe.todo" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-          <span ng-if="!recipe.todo" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          <span ng-if="recipe.todo" class="glyphicon glyphicon-ok color-green" aria-hidden="true"></span>
+          <span ng-if="!recipe.todo" class="glyphicon glyphicon-remove color-red" aria-hidden="true"></span>
         </td>
         <td data-title="'Web site'" align="center">
-          <a href="{{recipe.webLink}}" type="button" class="edit btn btn-default btn-sm" uib-tooltip="Web site">
-            <span class="fa fa-pencil"></span>
+          <a href="{{recipe.webLink}}" target="_blank" type="button" class="edit btn btn-default btn-sm" uib-tooltip="Web site">
+            <span class="fa fa-external-link"></span>
           </a>
         </td>
         <td data-title="'Details'" align="center">
           <button ng-click="vm.openModalForDetails(recipe)" type="button" class="edit btn btn-default btn-sm" uib-tooltip="Details">
-            <span class="fa fa-pencil"></span>
+            <span class="fa fa-info-circle"></span>
           </button>
         </td>
       </tr>

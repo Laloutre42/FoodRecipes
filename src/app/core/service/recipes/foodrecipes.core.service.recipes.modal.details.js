@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('foodrecipes.core.service.recipes.modal.details', [])
-    .service('RecipeDetailsService', function ($modal) {
+    .service('RecipeDetailsService', function ($uibModal) {
 
       var RecipeDetailsService = {
         openModalForDetails: openModalForDetails
@@ -10,13 +10,13 @@
 
       function openModalForDetails(recipe) {
 
-        $modal.open({
+        $uibModal.open({
           animation: true,
           templateUrl: 'app/sections/recipes/modal/recipes.detail.html',
           controller: 'RecipeDetailController',
           size: 'lg',
           resolve: {
-            product: function () {
+            recipe: function () {
               return recipe;
             }
           }
