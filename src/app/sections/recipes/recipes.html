@@ -1,34 +1,46 @@
 <div class="row">
-  <div class="panel panel-default">
 
-    <div class="panel-heading clearfix">
-      <h4 class="panel-title pull-left panel-title-list" >Recipes</h4>
-      <button ng-disabled="!vm.user" ng-click="vm.addrecipe()" class="btn btn-primary pull-right">Add a new recipe</button>
-    </div>
+  <h4>Recipes</h4>
 
-    <div class="panel-body">
-      <div class="table-responsive">
-        <table ng-table="vm.recipesTable" class="table table-condensed row-border table-hover v-middle" ng-show="($data.length > 0)">
-          <tbody>
-          <tr ng-repeat="recipe in $data">
-            <td class="rowClick" ng-click="vm.navigateToDetailrecipe(recipe)" sortable="'author'" data-title="'Author'">{{recipe.user.name}}</td>
-            <td class="rowClick" ng-click="vm.navigateToDetailrecipe(recipe)" sortable="'name'" data-title="'Name'">{{recipe.name}}</td>
-            <td class="rowClick" ng-click="vm.navigateToDetailrecipe(recipe)" sortable="'description'" data-title="'Description'">{{recipe.description}}</td>
-            <td class="twelvePercentWidthRow" align="center" ng-if="recipe.user.id === vm.user.id">
-              <button ng-click="vm.addRecipe(recipe)" type="button" class="edit btn btn-default btn-sm" tooltip="Edit recipe">
-                <span class="fa fa-pencil"></span>
-              </button>
-              <button ng-click="vm.removeRecipe(recipe)" type="button" class="remove btn btn-default btn-sm" tooltip="Delete recipe">
-                <span class="fa fa-trash-o"></span>
-              </button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
+  <div class="table-responsive">
+    <table ng-table="vm.recipesTable" class="table table-condensed row-border table-hover v-middle" ng-show="($data.length > 0)">
+      <tbody>
+      <tr ng-repeat="recipe in $data" ng-click="vm.navigateToDetailrecipe(recipe)">
+        <td data-title="'Image'" align="center">
+          <img src="{{recipe.imagePath}}">
+        </td>
+        <td sortable="'name'" data-title="'Name'">{{recipe.name}}</td>
+        <td sortable="'description'" data-title="'Description'">{{recipe.description}}</td>
+        <td sortable="'type'" data-title="'Type'">{{recipe.type}}</td>
+        <td sortable="'complexity'" data-title="'Complexity'">
+          <uib-rating ng-model="recipe.complexity" max="3" readonly="true"></uib-rating>
+        </td>
+        <td sortable="'result'" data-title="'Result'">
+          <uib-rating ng-model="recipe.result" max="3" readonly="true"></uib-rating>
+        </td>
+        <td sortable="'done'" data-title="'Done'" align="center">
+          <span ng-if="recipe.done" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+          <span ng-if="!recipe.done" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </td>
+        <td sortable="'todo'" data-title="'Todo'" align="center">
+          <span ng-if="recipe.todo" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+          <span ng-if="!recipe.todo" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </td>
+        <td data-title="'Web site'" align="center">
+          <a href="{{recipe.webLink}}" type="button" class="edit btn btn-default btn-sm" uib-tooltip="Web site">
+            <span class="fa fa-pencil"></span>
+          </a>
+        </td>
+        <td data-title="'Details'" align="center">
+          <button ng-click="vm.openModalForDetails(recipe)" type="button" class="edit btn btn-default btn-sm" uib-tooltip="Details">
+            <span class="fa fa-pencil"></span>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
+
 </div>
 
 

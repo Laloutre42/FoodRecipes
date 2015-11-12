@@ -1,53 +1,41 @@
 (function () {
   'use strict';
 
-  angular.module('foodrecipes.sections.recipes.controller', [])
-    .controller('RecipesController', ['$log', '$filter', '$stateParams', '$state', 'ngTableParams', 'RecipesService', 'SessionService',
-        function ($log, $filter, $stateParams, $state, ngTableParams, RecipesService, SessionService) {
+  angular.module('foodrecipes.sections.recipes.controller', ['foodrecipes.sections.recipes.modal.controller'])
+    .controller('RecipesController', ['$log', '$filter', '$stateParams', '$state', 'ngTableParams', 'RecipesService', 'SessionService', 'RecipeDetailsService',
+      function ($log, $filter, $stateParams, $state, ngTableParams, RecipesService, SessionService, RecipeDetailsService) {
 
-      var vm = this;
-      vm.addRecipe = addRecipe;
-      vm.navigateToDetailRecipe = navigateToDetailRecipe;
-      vm.removeRecipe = removeRecipe;
-      vm.user = SessionService.getUser();
+        var vm = this;
+        vm.navigateToDetailRecipe = navigateToDetailRecipe;
+        vm.user = SessionService.getUser();
+        vm.openModalForDetails = RecipeDetailsService.openModalForDetails;
 
-      // ng table to display data
-      vm.recipesTable = new ngTableParams({
-        page: 1,
-        count: 10
-      }, {
-        total: 0,
-        getData: function ($defer, params) {
-          getAllRecipes($defer, params);
+        // ng table to display data
+        vm.recipesTable = new ngTableParams({
+          page: 1,
+          count: 10
+        }, {
+          total: 0,
+          getData: function ($defer, params) {
+            getAllRecipes($defer, params);
+          }
+        });
+
+        // Navigate to the recipe detail
+        function navigateToDetailRecipe(recipe) {
+          $state.go('main.itemslist', {recipeId: recipe.id});
         }
-      });
 
-      // Open a modal to add a new recipe
-      function addRecipe(recipe) {
-        $state.go('main.addRecipe', {recipe: recipe});
-      }
+        function getAllRecipes($defer, params) {
 
-      // Navigate to the recipe detail
-      function navigateToDetailRecipe(recipe) {
-        $state.go('main.itemslist', {recipeId: recipe.id});
-      }
+          RecipesService.query().$promise.then(function (data) {
+            $log.debug('[getAllRecipes] length is ', data.length);
 
-      function removeRecipe(recipe) {
-        RecipesService.delete({'id': recipe.id}).$promise.then(function () {
-          vm.recipesTable.reload();
-        });
-      }
+            var orderedData = params.sorting() ? $filter('orderBy')(data, vm.recipesTable.orderBy()) : data;
+            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+            params.total(orderedData.length);
+          });
+        }
 
-      function getAllRecipes($defer, params) {
-
-        RecipesService.query().$promise.then(function (data) {
-          $log.debug('[getAllRecipes] length is ', data.length);
-
-          var orderedData = params.sorting() ? $filter('orderBy')(data, vm.recipesTable.orderBy()) : data;
-          $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-          params.total(orderedData.length);
-        });
-      }
-
-    }]);
+      }]);
 })();

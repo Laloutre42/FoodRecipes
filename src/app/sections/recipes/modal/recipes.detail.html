@@ -1,0 +1,45 @@
+<!-- Modal -->
+<!--Header-->
+<div class="modal-header">
+  <button type="button" class="close " ng-click="close()">
+    <span aria-hidden="true">&times;</span>
+    <span class="sr-only">Close</span>
+  </button>
+  <h4 class="modal-title">Recipe details</h4>
+</div>
+
+  {{recipe.comment}}
+  {{recipe.ingredient}}
+
+<!--Body-->
+<div class="modal-body">
+  <form name="addNewFoodListForm" class="form-horizontal" role="form">
+    <div class="modal-body">
+
+      <!-- Panel table -->
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table ng-table="itemDetailTable" class="table bagofood-table-list table-condensed row-border v-middle" ng-show="($data.length > 0)">
+              <tbody>
+              <tr ng-repeat="item in $data">
+                <td sortable="'name'" data-title="'Name'">{{item.name}}</td>
+                <td sortable="'value'" data-title="'Valeur'">{{item.value}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<!--Footer-->
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="close()">Close</button>
+</div>
+
+
