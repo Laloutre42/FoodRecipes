@@ -8,7 +8,7 @@
   var gulpNgConfig = require('gulp-ng-config');
   var argv = require('yargs').argv;
 
-  var environment = argv.env || 'dev';
+  var environment = argv.env || 'local';
 
   gulp.task('config-env', function () {
     gulp.src(path.join(conf.paths.src, '/config-env/foodrecipes.core.constant.env.json'))

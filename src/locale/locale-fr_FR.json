@@ -7,5 +7,18 @@
   "key.foodrecipes.run.your_are_not_allowed": "Vous n'êtes pas autorisé",
   "key.foodrecipes.run.your_are_not_logged_in": "Vous n'êtes pas loggué",
   "key.foodrecipes.sections.main.controller.powered_by": "Propulsé par ",
-  "key.foodrecipes.components.languageSelect.directive.language": "Language"
+  "key.foodrecipes.components.languageSelect.directive.language": "Language",
+
+  "key.foodrecipes.sections.recipes.recipes": "Recettes",
+  "key.foodrecipes.sections.recipes.image": "Image",
+  "key.foodrecipes.sections.recipes.name": "Nom",
+  "key.foodrecipes.sections.recipes.description": "Description",
+  "key.foodrecipes.sections.recipes.type": "Type",
+  "key.foodrecipes.sections.recipes.duration": "Durée",
+  "key.foodrecipes.sections.recipes.complexity": "Complexité",
+  "key.foodrecipes.sections.recipes.result": "Résultat",
+  "key.foodrecipes.sections.recipes.done": "Fait",
+  "key.foodrecipes.sections.recipes.todo": "A faire",
+  "key.foodrecipes.sections.recipes.website": "Site web",
+  "key.foodrecipes.sections.recipes.details": "Détails"
 }

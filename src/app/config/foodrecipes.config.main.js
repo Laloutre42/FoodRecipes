@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('foodrecipes.config.main', [])
-    .config(['$logProvider', '$httpProvider', 'toastr', 'ENV',
-      function ($logProvider, $httpProvider, toastr, ENV) {
+    .config(['$logProvider', '$httpProvider', '$sceDelegateProvider', 'toastr', 'ENV',
+      function ($logProvider, $httpProvider, $sceDelegateProvider, toastr, ENV) {
 
         // Enable log
         $logProvider.debugEnabled(ENV.isDebugEnabled);
@@ -19,6 +19,15 @@
           function ($injector) {
             return $injector.get('AuthenticationInterceptorService');
           }
+        ]);
+
+        //$sceProvider.enabled(false);
+
+        $sceDelegateProvider.resourceUrlWhitelist([
+          // Allow same origin resource loads.
+          'self',
+          // Allow loading from our assets domain.  Notice the difference between * and **.
+          ENV.serverName + '/**'
         ]);
 
       }]);
