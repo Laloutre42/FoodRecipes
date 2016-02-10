@@ -5,36 +5,44 @@
   <div class="table-responsive">
     <table ng-table="vm.recipesTable" class="table table-condensed row-border table-hover v-middle" ng-show="($data.length > 0)">
       <tbody>
-      <tr ng-repeat="recipe in $data" ng-click="vm.navigateToDetailrecipe(recipe)">
+      <tr class="rowClick" ng-repeat="recipe in $data">
         <td data-title="'key.foodrecipes.sections.recipes.image' | translate" align="center">
-          <img src="{{recipe.imagePath}}">
+          <img ng-src="{{recipe.imagePath}}">
         </td>
-        <td sortable="'name'" data-title="'key.foodrecipes.sections.recipes.name' | translate"><span class="recipe-name">{{recipe.name}}</span></td>
-        <td sortable="'description'" data-title="'key.foodrecipes.sections.recipes.description' | translate">{{recipe.description}}</td>
-        <td sortable="'type'" data-title="'key.foodrecipes.sections.recipes.type' | translate">{{recipe.type}}</td>
-        <td sortable="'duration'" data-title="'key.foodrecipes.sections.recipes.duration' | translate">{{recipe.duration}} min</td>
-        <td sortable="'complexity'" data-title="'key.foodrecipes.sections.recipes.complexity' | translate">
+        <td sortable="'name'" data-title="'key.foodrecipes.sections.recipes.name' | translate" ui-sref="main.recipe({recipeId: recipe.id})">
+          <span class="recipe-name">{{::recipe.name}}</span>
+        </td>
+        <td sortable="'description'" data-title="'key.foodrecipes.sections.recipes.description' | translate" ui-sref="main.recipe({recipeId: recipe.id})">
+          {{::recipe.description}}
+        </td>
+        <td sortable="'type'" data-title="'key.foodrecipes.sections.recipes.type' | translate" ui-sref="main.recipe({recipeId: recipe.id})">
+          {{::recipe.type}}
+        </td>
+        <td sortable="'duration'" data-title="'key.foodrecipes.sections.recipes.duration' | translate" ui-sref="main.recipe({recipeId: recipe.id})">
+          {{::recipe.duration}} min
+        </td>
+        <td sortable="'complexity'" data-title="'key.foodrecipes.sections.recipes.complexity' | translate" ui-sref="main.recipe({recipeId: recipe.id})">
           <uib-rating ng-model="recipe.complexity" max="3" readonly="true"></uib-rating>
         </td>
-        <td sortable="'result'" data-title="'key.foodrecipes.sections.recipes.result' | translate">
+        <td sortable="'result'" data-title="'key.foodrecipes.sections.recipes.result' | translate" ui-sref="main.recipe({recipeId: recipe.id})">
           <uib-rating ng-model="recipe.result" max="3" readonly="true"></uib-rating>
         </td>
-        <td sortable="'done'" data-title="'key.foodrecipes.sections.recipes.done' | translate" align="center">
-          <span ng-if="recipe.done" class="fa fa-check color-green" aria-hidden="true"></span>
-          <span ng-if="!recipe.done" class="fa fa-times color-red" aria-hidden="true"></span>
+        <td sortable="'done'" data-title="'key.foodrecipes.sections.recipes.done' | translate" align="center" ui-sref="main.recipe({recipeId: recipe.id})">
+          <span ng-if="::(recipe.done)" class="fa fa-check color-green" aria-hidden="true"></span>
+          <span ng-if=" ::(!recipe.done)" class="fa fa-times color-red" aria-hidden="true"></span>
         </td>
-        <td sortable="'todo'" data-title="'key.foodrecipes.sections.recipes.todo' | translate" align="center">
-          <span ng-if="recipe.todo" class="fa fa-check color-green" aria-hidden="true"></span>
-          <span ng-if="!recipe.todo" class="fa fa-times color-red" aria-hidden="true"></span>
+        <td sortable="'todo'" data-title="'key.foodrecipes.sections.recipes.todo' | translate" align="center" ui-sref="main.recipe({recipeId: recipe.id})">
+          <span ng-if="::(recipe.todo)" class="fa fa-check color-green" aria-hidden="true"></span>
+          <span ng-if="::(!recipe.todo)" class="fa fa-times color-red" aria-hidden="true"></span>
         </td>
         <td data-title="'key.foodrecipes.sections.recipes.website' | translate" align="center">
-          <a href="{{recipe.webLink}}" target="_blank" type="button" class="edit btn btn-default btn-sm" uib-tooltip="Web site">
+          <a href="{{::recipe.webLink}}" target="_blank" type="button" class="edit btn btn-default btn-sm" uib-tooltip="Web site">
             <span class="fa fa-external-link"></span>
           </a>
         </td>
-        <td data-title="'key.foodrecipes.sections.recipes.details' | translate" align="center">
-          <button ng-click="vm.openModalForDetails(recipe)" type="button" class="edit btn btn-default btn-sm" uib-tooltip="Details">
-            <span class="fa fa-info-circle"></span>
+        <td data-title="'key.foodrecipes.sections.recipes.delete' | translate" align="center">
+          <button ng-click="vm.openModalForDelete(recipe)" type="button" class="edit btn btn-default btn-sm" uib-tooltip="Delete">
+            <span class="fa fa-trash-o"></span>
           </button>
         </td>
       </tr>

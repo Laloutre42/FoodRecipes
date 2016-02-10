@@ -20,5 +20,7 @@
   "key.foodrecipes.sections.recipes.done": "Fait",
   "key.foodrecipes.sections.recipes.todo": "A faire",
   "key.foodrecipes.sections.recipes.website": "Site web",
-  "key.foodrecipes.sections.recipes.details": "Détails"
+  "key.foodrecipes.sections.recipes.details": "Détails",
+  "key.foodrecipes.sections.recipes.edit": "Editer",
+  "key.foodrecipes.sections.recipes.delete": "Supprimer"
 }

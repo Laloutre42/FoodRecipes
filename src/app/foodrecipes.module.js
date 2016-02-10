@@ -17,8 +17,10 @@ angular.module('foodrecipes', [
   'ui.bootstrap',
   'ui.router',
 
-  //Char with highcharts-ng build with highcharts for angular
-  'highcharts-ng',
+  // Ui router extra
+  'ct.ui.router.extras.core',
+  'ct.ui.router.extras.transition',
+  'ct.ui.router.extras.previous',
 
   // translate
   'pascalprecht.translate',

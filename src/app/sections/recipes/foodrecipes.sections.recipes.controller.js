@@ -1,14 +1,19 @@
 (function () {
   'use strict';
 
-  angular.module('foodrecipes.sections.recipes.controller', ['foodrecipes.sections.recipes.modal.controller'])
-    .controller('RecipesController', ['$log', '$filter', '$stateParams', '$state', 'ngTableParams', 'RecipesService', 'SessionService', 'RecipeDetailsService',
-      function ($log, $filter, $stateParams, $state, ngTableParams, RecipesService, SessionService, RecipeDetailsService) {
+  angular.module('foodrecipes.sections.recipes.controller', [
+    'foodrecipes.sections.recipes.recipe.controller',
+    'foodrecipes.sections.recipes.modal.delete.controller'
+  ])
+    .controller('RecipesController', ['$rootScope', '$log', '$filter', '$stateParams', '$state', 'ngTableParams', 'RecipesService', 'SessionService', 'RecipeModalService',
+      function ($rootScope, $log, $filter, $stateParams, $state, ngTableParams, RecipesService, SessionService, RecipeModalService) {
 
         var vm = this;
-        vm.navigateToDetailRecipe = navigateToDetailRecipe;
+        vm.navigateToDetailrecipe = navigateToDetailRecipe;
         vm.user = SessionService.getUser();
-        vm.openModalForDetails = RecipeDetailsService.openModalForDetails;
+        vm.openModalForDetails = RecipeModalService.openModalForDetails;
+        vm.openModalForEdit = RecipeModalService.openModalForEdit;
+        vm.openModalForDelete = RecipeModalService.openModalForDelete;
 
         // ng table to display data
         vm.recipesTable = new ngTableParams({
@@ -23,19 +28,26 @@
 
         // Navigate to the recipe detail
         function navigateToDetailRecipe(recipe) {
-          $state.go('main.itemslist', {recipeId: recipe.id});
+          $state.go('main.recipe', {recipeId: recipe.id});
         }
 
         function getAllRecipes($defer, params) {
 
           RecipesService.query().$promise.then(function (data) {
-            $log.debug('[getAllRecipes] length is ', data.length);
+            $log.debug('[RecipesController][getAllRecipes] recipes data length is ', data.length);
 
             var orderedData = params.sorting() ? $filter('orderBy')(data, vm.recipesTable.orderBy()) : data;
             $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
             params.total(orderedData.length);
           });
         }
+
+        /** Events **/
+
+        // Reload data
+        $rootScope.$on('reload', function (event){
+          vm.recipesTable.reload();
+        })
 
       }]);
 })();
