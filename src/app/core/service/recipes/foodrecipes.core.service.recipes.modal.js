@@ -5,7 +5,8 @@
     .service('RecipeModalService', function ($uibModal) {
 
       var RecipeModalService = {
-        openModalForDelete: openModalForDelete
+        openModalForDelete: openModalForDelete,
+        openModalForAddToMyRecipe: openModalForAddToMyRecipe
       };
 
       function openModalForDelete(recipe) {
@@ -14,6 +15,21 @@
           animation: true,
           templateUrl: 'app/sections/recipes/modal/recipes.delete.html',
           controller: 'RecipeModalDeleteController',
+          size: 'lg',
+          resolve: {
+            recipe: function () {
+              return recipe;
+            }
+          }
+        });
+      }
+
+      function openModalForAddToMyRecipe(recipe) {
+
+        $uibModal.open({
+          animation: true,
+          templateUrl: 'app/sections/recipes/modal/recipes.addToMyRecipe.html',
+          controller: 'RecipeModalAddToMyRecipeController',
           size: 'lg',
           resolve: {
             recipe: function () {

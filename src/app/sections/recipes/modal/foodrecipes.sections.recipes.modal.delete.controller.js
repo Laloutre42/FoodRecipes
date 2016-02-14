@@ -4,13 +4,13 @@
 
   angular.module('foodrecipes.sections.recipes.modal.delete.controller', [])
     .controller('RecipeModalDeleteController', ['$scope', '$uibModalInstance', 'RecipesService', 'recipe',
-      function ($scope, $uibModalInstance, RecipeService, recipe) {
+      function ($scope, $uibModalInstance, RecipesService, recipe) {
 
         $scope.recipe = recipe;
 
         $scope.delete = function () {
           $uibModalInstance.close();
-          RecipeService.delete(recipe).$promise.then(function () {
+          RecipesService.delete(recipe).$promise.then(function () {
               $scope.$emit('reload');
           });
         };

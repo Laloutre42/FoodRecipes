@@ -20,7 +20,7 @@
 
           // Recipes
           .state('main.recipes', {
-            url: '/recipes',
+            url: '/recipes/:type',
             templateUrl: 'app/sections/recipes/recipes.html',
             controller: 'RecipesController as vm',
             data: {

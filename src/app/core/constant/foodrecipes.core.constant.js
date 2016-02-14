@@ -17,12 +17,14 @@
       'preferredLocale': 'en_US'
     })
 
-    .constant('CONST', {
-      itemCategories: ['Breakfast', 'Snack', 'Lunch', 'Diner'],
-      catalog: {
-        CIQUAL_2012: 'Ciqual 2012',
-        CUSTOM: 'Custom'
-      }
+    .constant('LIST_MODE', {
+      MY_LIST_MODE: '0',
+      All_LIST_MODE: '1'
+    })
+
+    .constant('RECIPE_STATUS', {
+      ORIGINAL: 0,
+      DUPLICATED: 1
     })
 
     .constant('AUTH_EVENTS', {

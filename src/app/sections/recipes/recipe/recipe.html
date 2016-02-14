@@ -1,23 +1,29 @@
-<div ng-if="vm.recipe !== undefined && vm.recipe.name !== undefined">
+<div ng-if="(vm.recipe !== undefined && vm.recipe.name !== undefined) || vm.isAddMode()">
 
   <!--Header-->
-  <div class="modal-header">
-    <h4 class="modal-title">{{vm.recipe.name}}</h4>
+  <div ng-if="vm.user && vm.recipe.user.id === vm.user.id && !vm.isAddMode()" class="row">
     <button type="button" class="btn btn-primary" ng-class="{'active': vm.isViewMode()}" ng-click="vm.switchToViewMode()">View mode</button>
     <button type="button" class="btn btn-primary" ng-class="{'active': vm.isEditMode()}" ng-click="vm.switchToEditMode()">Edit mode</button>
+    <button ng-click="vm.openModalForDelete(vm.recipe)" type="button" class="edit btn btn-default btn-sm" uib-tooltip="Delete">
+      <span class="fa fa-trash-o"></span>
+    </button>
+    <br>
+    <br>
   </div>
 
   <!--Body-->
-  <div class="modal-body">
+  <div class="row">
 
     <!--View Mode-->
     <div ng-if="vm.isViewMode()">
+
       <div class="row">
-        <div class="col-sm-4"><img ng-src="{{::vm.recipe.imagePath}}"></div>
+        <div class="col-sm-4 well text-center"><img ng-src="{{::vm.recipe.imagePath}}"></div>
         <div class="col-sm-4">
           <h3>{{::vm.recipe.name}}</h3>
           <span>{{::vm.recipe.type}}</span><br>
-          <span><a href="{{::vm.recipe.webLink}}" target="_blank">Web site</a></span>
+          <span><a href="{{::vm.recipe.webLink}}" target="_blank">Web site</a></span><br>
+          <span><i>{{::vm.recipe.user.name}}</i></span>
         </div>
         <div class="col-sm-4">
           <ul class="list-group">
@@ -36,147 +42,201 @@
           </ul>
         </div>
       </div>
+
       <div class="row">
-        <p>{{::vm.recipe.description}}</p>
+        <div class="col-sm-4">
+          <ul class="list-group">
+            <li class="list-group-item" ng-repeat="ingredient in ::vm.recipe.ingredients">
+              {{ingredient}}
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-8">
+          <p>{{::vm.recipe.description}}</p>
+        </div>
       </div>
-      <div class="row">
-        <div class="alert alert-info" role="alert">{{::vm.recipe.comment}}</div>
+
+      <div class="row" ng-if="vm.recipe.comment !== undefined && vm.recipe.comment !== ''">
+        <div class="well">{{::vm.recipe.comment}}</div>
       </div>
+
+      <br>
+
     </div>
 
-    <!--Edit Mode-->
-    <div ng-if="vm.isEditMode()">
-      <form name="form" class="form-horizontal" role="form">
+    <!--Add or Edit Mode-->
+    <div class="row" ng-if="vm.user && (vm.isEditMode() || vm.isAddMode())">
+      <form id="addOrEditRecipe" name="addOrEditRecipeForm" class="form-horizontal" role="form">
+        <div>
 
-        <!--Name-->
-        <div class="form-group name">
-          <label class="col-sm-2 control-label">Name</label>
+          <!--Name-->
+          <div class="form-group name">
+            <label class="col-sm-2 control-label">Name</label>
 
-          <div class="col-sm-10" ng-class="{'has-error': form.name.$invalid && form.name.$dirty}">
-            <input name="name" type="text" class="form-control" placeholder="Name" ng-model="vm.recipe.name" required maxlength="50">
+            <div class="col-sm-10" ng-class="{'has-error': addOrEditRecipeForm.name.$invalid && addOrEditRecipeForm.name.$dirty}">
+              <input name="name" type="text" class="form-control" placeholder="Name" ng-model="vm.recipe.name" required maxlength="50">
 
-            <div ng-messages="form.name.$error" ng-if='form.name.$dirty' class="error">
-              <div ng-message="required"><span>Name is required</span></div>
-              <div ng-message="maxlength"><span>Name is too long</span></div>
+              <div ng-messages="addOrEditRecipeForm.name.$error" ng-if='addOrEditRecipeForm.name.$dirty' class="error">
+                <div ng-message="required"><span>Name is required</span></div>
+                <div ng-message="maxlength"><span>Name is too long</span></div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!--Description-->
-        <div class="form-group name">
-          <label class="col-sm-2 control-label">Description</label>
+          <!--Description-->
+          <div class="form-group name">
+            <label class="col-sm-2 control-label">Description</label>
 
-          <div class="col-sm-10">
-            <textarea name="description" class="form-control" rows="5" placeholder="Description" ng-model="vm.recipe.description"/>
-          </div>
-        </div>
-
-        <!--Comment-->
-        <div class="form-group name">
-          <label class="col-sm-2 control-label">Comment</label>
-
-          <div class="col-sm-10">
-            <textarea name="comment" class="form-control" rows="5" placeholder="Comment" ng-model="vm.recipe.comment"/>
-          </div>
-        </div>
-
-        <!--Image-->
-        <div class="form-group imagePath">
-          <label class="col-sm-2 control-label">Image</label>
-
-          <div class="col-sm-10" ng-class="{'has-error': form.imagePath.$invalid && form.imagePath.$dirty}">
-            <input name="imagePath" type="text" class="form-control" placeholder="Image path" ng-model="vm.recipe.imagePath" maxlength="255">
-
-            <div ng-messages="form.imagePath.$error" ng-if='form.imagePath.$dirty' class="error">
-              <div ng-message="maxlength"><span>Name is too long</span></div>
+            <div class="col-sm-10">
+              <textarea name="description" class="form-control" rows="3" placeholder="Description" ng-model="vm.recipe.description"/>
             </div>
           </div>
-        </div>
 
-        <!--Type-->
-        <div class="form-group type">
-          <label class="col-sm-2 control-label">Type</label>
+          <!--Comment-->
+          <div class="form-group name">
+            <label class="col-sm-2 control-label">Comment</label>
 
-          <div class="col-sm-10" ng-class="{'has-error': form.type.$invalid && form.type.$dirty}">
-            <input name="type" type="text" class="form-control" placeholder="Type" ng-model="vm.recipe.type" required maxlength="50">
-
-            <div ng-messages="form.type.$error" ng-if='form.type.$dirty' class="error">
-              <div ng-message="required"><span>Type is required</span></div>
-              <div ng-message="maxlength"><span>Type is too long</span></div>
+            <div class="col-sm-10">
+              <textarea name="comment" class="form-control" rows="3" placeholder="Comment" ng-model="vm.recipe.comment"/>
             </div>
           </div>
-        </div>
 
-        <!--Web site-->
-        <div class="form-group website">
-          <label class="col-sm-2 control-label">Website</label>
+          <!-- Ingredients -->
+          <div class="form-group name">
+            <label class="col-sm-2 control-label">Ingredients</label>
 
-          <div class="col-sm-10" ng-class="{'has-error': form.website.$invalid && form.website.$dirty}">
-            <input name="website" type="text" class="form-control" placeholder="Name" ng-model="vm.recipe.webLink" maxlength="255">
+            <div class="col-sm-10">
 
-            <div ng-messages="form.website.$error" ng-if='form.website.$dirty' class="error">
-              <div ng-message="maxlength"><span>Website is too long</span></div>
+              <div class="row" ng-repeat="ingredient in vm.recipe.ingredients track by $index">
+                <div class="col-sm-8" ng-class="{'has-error': addOrEditRecipeForm.ingredient{{$index}}.$invalid && addOrEditRecipeForm.ingredient{{$index}}.$dirty}">
+                  <input name="ingredient{{$index}}" type="text" class="form-control" placeholder="Ingredient" ng-model='vm.recipe.ingredients[$index]' required maxlength="255">
+
+                  <div ng-messages="vm.ingredientItemError(addOrEditRecipeForm, $index)" ng-if="vm.isIngredientItemDirty(addOrEditRecipeForm, $index)" class="error">
+                    <div ng-message="required"><span>Ingredient is required</span></div>
+                    <div ng-message="maxlength"><span>Name is too long</span></div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <button ng-click="vm.removeIngredient($index)" type="button" class="edit btn btn-default btn-sm" uib-tooltip="Remove ingredient">
+                    <span class="fa fa-minus"></span>
+                  </button>
+                  <button ng-if="$last" ng-click="vm.addIngredient()" type="button" class="edit btn btn-default btn-sm" uib-tooltip="Add ingredient">
+                    <span class="fa fa-plus"></span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="row" ng-if="vm.recipe.ingredients === undefined || vm.recipe.ingredients.length === 0">
+                <button ng-click="vm.addIngredient()" type="button" class="edit btn btn-default btn-sm" uib-tooltip="Add">
+                  <span class="fa fa-plus"></span>
+                </button>
+
+              </div>
+
             </div>
           </div>
-        </div>
 
-        <!--Duration-->
-        <div class="form-group duration">
-          <label class="col-sm-2 control-label">Duration</label>
+          <!--Image-->
+          <div class="form-group imagePath">
+            <label class="col-sm-2 control-label">Image</label>
 
-          <div class="col-sm-10" ng-class="{'has-error': form.duration.$invalid && form.duration.$dirty}">
-            <input name="duration" type="number" class="form-control" placeholder="Duration" ng-model="vm.recipe.duration" required>
+            <div class="col-sm-10" ng-class="{'has-error': addOrEditRecipeForm.imagePath.$invalid && addOrEditRecipeForm.imagePath.$dirty}">
+              <input name="imagePath" type="text" class="form-control" placeholder="Image path" ng-model="vm.recipe.imagePath" maxlength="255">
 
-            <div ng-messages="form.duration.$error" ng-if='form.duration.$dirty' class="error">
-              <div ng-message="required"><span>Duration is required</span></div>
+              <div ng-messages="addOrEditRecipeForm.imagePath.$error" ng-if='addOrEditRecipeForm.imagePath.$dirty' class="error">
+                <div ng-message="maxlength"><span>Name is too long</span></div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!--Complexité-->
-        <div class="form-group complexity">
-          <label class="col-sm-2 control-label">Complexity</label>
+          <!--Type-->
+          <div class="form-group type">
+            <label class="col-sm-2 control-label">Type</label>
 
-          <div class="col-sm-10">
-            <uib-rating class="form-control" ng-model="vm.recipe.complexity" max="3" readonly="false"></uib-rating>
+            <div class="col-sm-10" ng-class="{'has-error': addOrEditRecipeForm.type.$invalid && addOrEditRecipeForm.type.$dirty}">
+              <input name="type" type="text" class="form-control" placeholder="Type" ng-model="vm.recipe.type" required maxlength="50">
+
+              <div ng-messages="addOrEditRecipeForm.type.$error" ng-if='addOrEditRecipeForm.type.$dirty' class="error">
+                <div ng-message="required"><span>Type is required</span></div>
+                <div ng-message="maxlength"><span>Type is too long</span></div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <!--Résultat-->
-        <div class="form-group result">
-          <label class="col-sm-2 control-label">Result</label>
+          <!--Web site-->
+          <div class="form-group website">
+            <label class="col-sm-2 control-label">Website</label>
 
-          <div class="col-sm-10">
-            <uib-rating class="form-control" ng-model="vm.recipe.result" max="3" readonly="false"></uib-rating>
+            <div class="col-sm-10" ng-class="{'has-error': addOrEditRecipeForm.website.$invalid && addOrEditRecipeForm.website.$dirty}">
+              <input name="website" type="text" class="form-control" placeholder="Name" ng-model="vm.recipe.webLink" maxlength="255">
+
+              <div ng-messages="addOrEditRecipeForm.website.$error" ng-if='addOrEditRecipeForm.website.$dirty' class="error">
+                <div ng-message="maxlength"><span>Website is too long</span></div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <!--Fait-->
-        <div class="form-group done">
-          <label class="col-sm-2 control-label">Done</label>
+          <!--Duration-->
+          <div class="form-group duration">
+            <label class="col-sm-2 control-label">Duration</label>
 
-          <div class="col-sm-10">
-            <input name="done" type="checkbox" class="form-control" placeholder="Done" ng-model="vm.recipe.done">
+            <div class="col-sm-10" ng-class="{'has-error': addOrEditRecipeForm.duration.$invalid && addOrEditRecipeForm.duration.$dirty}">
+              <input name="duration" type="number" class="form-control" placeholder="Duration" ng-model="vm.recipe.duration" required>
+
+              <div ng-messages="addOrEditRecipeForm.duration.$error" ng-if='addOrEditRecipeForm.duration.$dirty' class="error">
+                <div ng-message="required"><span>Duration is required</span></div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <!--A Faire-->
-        <div class="form-group todo">
-          <label class="col-sm-2 control-label">To do</label>
+          <!--Complexité-->
+          <div class="form-group complexity">
+            <label class="col-sm-2 control-label">Complexity</label>
 
-          <div class="col-sm-10">
-            <input name="todo" type="checkbox" class="form-control" placeholder="To do" ng-model="vm.recipe.todo">
+            <div class="col-sm-10">
+              <uib-rating class="form-control" ng-model="vm.recipe.complexity" max="3" readonly="false"></uib-rating>
+            </div>
           </div>
+
+          <!--Résultat-->
+          <div class="form-group result">
+            <label class="col-sm-2 control-label">Result</label>
+
+            <div class="col-sm-10">
+              <uib-rating class="form-control" ng-model="vm.recipe.result" max="3" readonly="false"></uib-rating>
+            </div>
+          </div>
+
+          <!--Fait-->
+          <div class="form-group done">
+            <label class="col-sm-2 control-label">Done</label>
+
+            <div class="col-sm-10">
+              <input name="done" type="checkbox" class="form-control" placeholder="Done" ng-model="vm.recipe.done">
+            </div>
+          </div>
+
+          <!--A Faire-->
+          <div class="form-group todo">
+            <label class="col-sm-2 control-label">To do</label>
+
+            <div class="col-sm-10">
+              <input name="todo" type="checkbox" class="form-control" placeholder="To do" ng-model="vm.recipe.todo">
+            </div>
+          </div>
+
         </div>
 
+        <!--Footer-->
+        <div class="pull-right">
+          <button validation-submit="addOrEditRecipeForm" type="submit" class="btn btn-primary" ng-click="vm.save()" ng-if="vm.isEditMode() || vm.isAddMode()"
+                  ng-disabled="addOrEditRecipeForm.$invalid">Save
+          </button>
+          <button type="button" class="btn btn-primary" ng-click="vm.cancel()" ng-if="vm.isEditMode() || vm.isAddMode()">Cancel</button>
+          <button type="button" class="btn btn-primary" ng-click="vm.back()" ng-if="vm.isViewMode()">Back</button>
+        </div>
       </form>
     </div>
-  </div>
 
-  <!--Footer-->
-  <div class="modal-footer">
-    <button type="button" class="btn btn-primary" ng-click="vm.save()" ng-if="vm.isEditMode()">Save</button>
-    <button type="button" class="btn btn-primary" ng-click="vm.cancel()" ng-if="vm.isEditMode()">Cancel</button>
-    <button type="button" class="btn btn-primary" ng-click="vm.back()" ng-if="vm.isViewMode()">Back</button>
   </div>
 </div>

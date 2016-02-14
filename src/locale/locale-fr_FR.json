@@ -1,6 +1,6 @@
 {
-  "key.foodrecipes.components.navbar.directive.browse_the_lists": "Voir les listes",
-  "key.foodrecipes.components.navbar.directive.my_list": "Mes listes",
+  "key.foodrecipes.components.navbar.directive.browse_the_lists": "Voir les recettes",
+  "key.foodrecipes.components.navbar.directive.my_list": "Mes recettes",
   "key.foodrecipes.components.navbar.directive.about": "A propos",
   "key.foodrecipes.components.navbar.directive.log_in": "Connection",
   "key.foodrecipes.components.navbar.directive.log_out": "Déconnection",
@@ -22,5 +22,6 @@
   "key.foodrecipes.sections.recipes.website": "Site web",
   "key.foodrecipes.sections.recipes.details": "Détails",
   "key.foodrecipes.sections.recipes.edit": "Editer",
-  "key.foodrecipes.sections.recipes.delete": "Supprimer"
+  "key.foodrecipes.sections.recipes.delete": "Supprimer",
+  "key.foodrecipes.sections.recipes.add_to_my_recipe": "Ajouter"
 }

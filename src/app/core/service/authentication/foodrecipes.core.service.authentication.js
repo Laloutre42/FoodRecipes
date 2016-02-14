@@ -19,23 +19,7 @@
           (authorizedRoles.indexOf(USER_ROLES.all) !== -1));
         },
 
-        logOut: function () {
-
-          $http
-            .post(ENV.serverName + '/api/logout')
-            .then(
-            function (response) {
-              $log.error("[AuthenticationService][logOut] response ok ", response);
-              $rootScope.authenticated = false;
-            },
-            function (response) {
-              $log.error("[AuthenticationService][logOut] response error ", response);
-              $rootScope.authenticated = false;
-            });
-        },
-
         authenticationCheck: function () {
-          return true;
           return $http
             .get(ENV.serverName + '/api/authenticationCheck')
             .then(
