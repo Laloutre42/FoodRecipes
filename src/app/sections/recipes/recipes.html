@@ -41,14 +41,12 @@
           <span ng-if="::(!recipe.todo)" class="fa fa-times color-red" aria-hidden="true"></span>
         </td>
         <td data-title="'key.foodrecipes.sections.recipes.website' | translate" align="center">
-          <a href="{{::recipe.webLink}}" target="_blank" type="button" class="edit btn btn-default btn-sm" uib-tooltip="Web site">
-            <span class="fa fa-external-link"></span>
+          <a href="{{::recipe.webLink}}" target="_blank" type="button" class="fa fa-external-link edit btn btn-default btn-sm" uib-tooltip="Web site">
           </a>
         </td>
         <!--Delete column-->
         <td data-title="'key.foodrecipes.sections.recipes.delete' | translate" align="center" ng-if="vm.isMyListMode()">
-          <button ng-click="vm.openModalForDelete(recipe)" type="button" class="edit btn btn-default btn-sm" uib-tooltip="Delete">
-            <span class="fa fa-trash-o"></span>
+          <button ng-click="vm.openModalForDelete(recipe)" type="button" class="fa fa-trash-o edit btn btn-default btn-sm" uib-tooltip="Delete">
           </button>
         </td>
         <!--Add to my personal recipes list column-->
