@@ -27,10 +27,13 @@
           vm.authFacebookAction = vm.ENV.serverName + "/auth/facebook";
           vm.logoutAction = vm.ENV.serverName + "/api/logout";
 
-          $rootScope.$watch('SessionService.getUser()', function () {
-            vm.user = SessionService.getUser();
-            $log.debug("[NavbarController] User is ", vm.user);
-          });
+          $rootScope.$watch(function () {
+              return SessionService.getUser();
+            },
+            function () {
+              vm.user = SessionService.getUser();
+              $log.debug("[NavbarController] User is ", vm.user);
+            }, true);
 
           vm.relativeDate = moment(vm.creationDate).fromNow();
         }

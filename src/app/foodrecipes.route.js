@@ -40,6 +40,8 @@
          Spring Security responds to it by not sending a "WWW-Authenticate" header in a 401 response, and thus the browser will not pop up an authentication dialog
          (which is desirable in our app since we want to control the authentication). */
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+        // Allow cookies
+        $httpProvider.defaults.withCredentials = true;
 
         // use the HTML5 History API
         $locationProvider.html5Mode(true);

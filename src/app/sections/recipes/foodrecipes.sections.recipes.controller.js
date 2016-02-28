@@ -21,7 +21,7 @@
         vm.isMyListMode = isMyListMode;
         vm.isAllListMode = isAllListMode;
 
-        $log.debug('$stateParams.type', $stateParams.type === LIST_MODE.MY_LIST_MODE);
+        //$log.debug('$stateParams.type', $stateParams.type === LIST_MODE.MY_LIST_MODE);
         vm.mode = (typeof $stateParams.type !== 'undefined' && $stateParams.type === LIST_MODE.MY_LIST_MODE) ? LIST_MODE.MY_LIST_MODE : LIST_MODE.All_LIST_MODE;
 
         // ng table to display data
