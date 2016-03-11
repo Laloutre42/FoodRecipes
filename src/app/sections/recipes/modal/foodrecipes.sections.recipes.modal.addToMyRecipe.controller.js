@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-
   angular.module('foodrecipes.sections.recipes.modal.addToMyRecipe.controller', [])
     .controller('RecipeModalAddToMyRecipeController', ['$scope', '$uibModalInstance', 'RecipesService', 'SessionService', 'recipe', 'RECIPE_STATUS',
       function ($scope, $uibModalInstance, RecipesService, SessionService, recipe, RECIPE_STATUS) {

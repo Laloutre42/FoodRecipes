@@ -14,15 +14,21 @@
       </ul>
 
       <div class="nav navbar-nav navbar-form navbar-right">
+        <!--<div class="form-group" ng-if="!vm.user">-->
+          <!--<form method="get" action="{{vm.authFacebookAction}}">-->
+            <!--<button class="btn btn-primary" type="submit"><i class="fa fa-facebook"></i> {{'key.foodrecipes.components.navbar.directive.log_in' | translate}}</button>-->
+          <!--</form>-->
+        <!--</div>-->
+        <!--<div class="form-group" ng-if="!vm.user">-->
+          <!--<form method="get" action="{{vm.authGoogleAction}}">-->
+            <!--<button class="btn btn-danger" type="submit"><i class="fa fa-google"></i> {{'key.foodrecipes.components.navbar.directive.log_in' | translate}}</button>-->
+          <!--</form>-->
+        <!--</div>-->
         <div class="form-group" ng-if="!vm.user">
-          <form method="get" action="{{vm.authFacebookAction}}">
-            <button class="btn btn-primary" type="submit"><i class="fa fa-facebook"></i> {{'key.foodrecipes.components.navbar.directive.log_in' | translate}}</button>
-          </form>
+          <button class="btn btn-primary" ng-click="vm.openModalForSignIn()"><i class="fa fa-sign-in"></i> Log in</button>
         </div>
         <div class="form-group" ng-if="!vm.user">
-          <form method="get" action="{{vm.authGoogleAction}}">
-            <button class="btn btn-danger" type="submit"><i class="fa fa-google"></i> {{'key.foodrecipes.components.navbar.directive.log_in' | translate}}</button>
-          </form>
+          <button class="btn btn-primary" ng-click="vm.openModalForSignUp()"><i class="fa fa-user-plus"></i> Sign up</button>
         </div>
         <div class="form-group" ng-if="vm.user"><b>{{vm.user.name}}</b></div>
         <div class="form-group" ng-if="vm.user">

@@ -1,21 +1,60 @@
 <!-- Modal -->
-<!--Header-->
-<div class="modal-header">
-  <button type="button" class="close " ng-click="close()">
-    <span aria-hidden="true">&times;</span>
-    <span class="sr-only">Close</span>
-  </button>
-  <h4 class="modal-title">Login</h4>
-</div>
+<form name="loginForm" class="form-horizontal" role="form">
+  <!--Header-->
+  <div class="modal-header">
+    <button type="button" class="close " ng-click="close()">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <h4 class="modal-title">Login</h4>
+  </div>
 
-<!--Body-->
-<div class="modal-body">
-  <authentication-login-directive class=""></authentication-login-directive>
-</div>
+  <!--Body-->
+  <div class="modal-body">
 
-<!--Footer-->
-<div class="modal-footer">
-  <button type="button" class="btn btn-primary" ng-click="close()">Close</button>
-</div>
+    <!--Email-->
+    <div class="form-group email">
+      <label class="col-sm-2 control-label">Email</label>
+
+      <div class="col-sm-10" ng-class="{'has-error': loginForm.email.$invalid && loginForm.email.$dirty}">
+
+        <input name="email" type="email" class="form-control" placeholder="Email" ng-model="credentials.email" required maxlength="255">
+
+        <div ng-messages="loginForm.email.$error" ng-if='loginForm.email.$dirty' class="error">
+          <div ng-message="required"><span>Email is required</span></div>
+          <div ng-message="email"><span>Your email address is invalid</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!--Password-->
+    <div class="form-group password">
+      <label class="col-sm-2 control-label">Password</label>
+
+      <div class="col-sm-10" ng-class="{'has-error': loginForm.password.$invalid && loginForm.password.$dirty}">
+
+        <input name="password" type="password" class="form-control" placeholder="Password" ng-model="credentials.password" required maxlength="50">
+
+        <div ng-messages="loginForm.password.$error" ng-if='loginForm.password.$dirty' class="error">
+          <div ng-message="required"><span>Password is required</span></div>
+          <div ng-message="maxlength"><span>Password is too long</span></div>
+        </div>
+
+      </div>
+
+    </div>
+    <alert type="danger" ng-if="errorMessage !== undefined" ng-bind="errorMessage"></alert>
+  </div>
+
+  <!--Footer-->
+  <div class="modal-footer">
+    <button validation-submit="loginForm" type="submit" class="btn btn-primary" ng-click="login(credentials)" ng-disabled="loginForm.$invalid">Login</button>
+    <button type="button" class="btn btn-default" ng-click="close()">Close</button>
+  </div>
+</form>
+
+
+
 
 
