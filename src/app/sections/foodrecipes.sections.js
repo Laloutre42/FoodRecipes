@@ -3,6 +3,7 @@
 
 	angular.module('foodrecipes.sections',[
     	'foodrecipes.sections.main.controller',
-  		'foodrecipes.sections.recipes.controller'
+  		'foodrecipes.sections.recipes.controller',
+      'foodrecipes.sections.signup.controller'
 	]);
 })();

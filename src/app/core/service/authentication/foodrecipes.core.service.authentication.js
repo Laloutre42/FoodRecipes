@@ -6,6 +6,32 @@
       function ($rootScope, $cookies, $log, $http, USER_ROLES, AUTH_EVENTS, ENV, SessionService) {
         var AuthenticationService = {
 
+          getSignUpFormFromConnection: function () {
+            return $http
+              .get(ENV.serverName + '/api/signup')
+              .then(
+                function (response) {
+                  $log.debug("[AuthenticationService][getSignUpFormFromConnection] response ", response);
+                  return response.data;
+                },
+                function (errorResponse) {
+                  $log.error("[AuthenticationService][getSignUpFormFromConnection] errorResponse ", errorResponse);
+                });
+          },
+
+          postSignUpForm: function (credentials) {
+            return $http
+              .post(ENV.serverName + '/api/signup', credentials)
+              .then(
+                function (response) {
+                  $log.debug("[AuthenticationService][postSignUpForm] response ", response);
+                  return response.data;
+                },
+                function (errorResponse) {
+                  $log.error("[AuthenticationService][postSignUpForm] errorResponse ", errorResponse);
+                });
+          },
+
           login: function (credentials) {
 
             $http

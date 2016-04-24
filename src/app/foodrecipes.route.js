@@ -18,6 +18,12 @@
             templateUrl: 'app/sections/about/about.html'
           })
 
+          .state('signup', {
+            url: '/signup',
+            templateUrl: 'app/sections/signup/signup.html',
+            controller: 'SignupController as vm'
+          })
+
           // Recipes
           .state('main.recipes', {
             url: '/recipes/:type',

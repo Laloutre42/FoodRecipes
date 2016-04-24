@@ -1,0 +1,61 @@
+<div>
+  <form name="signUpForm" class="form-horizontal" role="form">
+
+    <!--User Name-->
+    <div class="form-group name">
+      <label class="col-sm-2 control-label">Name</label>
+
+      <div class="col-sm-10" ng-class="{'has-error': signUpForm.name.$invalid && signUpForm.name.$dirty}">
+
+        <input name="name" type="text" class="form-control" placeholder="Name" ng-model="vm.credentials.name" required maxlength="255">
+
+        <div ng-messages="signUpForm.name.$error" ng-if='signUpForm.name.$dirty' class="error">
+          <div ng-message="required"><span>User name is required</span></div>
+          <div ng-message="maxlength"><span>User name is too long</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!--Email-->
+    <div class="form-group email">
+      <label class="col-sm-2 control-label">Email</label>
+
+      <div class="col-sm-10" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.email.$dirty}">
+
+        <input name="email" type="email" class="form-control" placeholder="Email" ng-model="vm.credentials.email" required maxlength="255">
+
+        <div ng-messages="signUpForm.email.$error" ng-if='signUpForm.email.$dirty' class="error">
+          <div ng-message="required"><span>Email is required</span></div>
+          <div ng-message="email"><span>Your email address is invalid</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!--Full Name-->
+    <div class="form-group fullName">
+      <label class="col-sm-2 control-label">Full name</label>
+
+      <div class="col-sm-10" ng-class="{'has-error': signUpForm.fullName.$invalid && signUpForm.fullName.$dirty}">
+
+        <input name="name" type="text" class="form-control" placeholder="Full name" ng-model="vm.credentials.fullName" required maxlength="255">
+
+        <div ng-messages="signUpForm.fullName.$error" ng-if='signUpForm.fullName.$dirty' class="error">
+          <div ng-message="required"><span>Full name is required</span></div>
+          <div ng-message="maxlength"><span>Full name is too long</span></div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <alert type="danger" ng-if="errorMessage !== undefined" ng-bind="errorMessage"></alert>
+  </form>
+</div>
+
+<div class="pull-right">
+  <button validation-submit="signUpForm" type="submit" class="btn btn-primary" ng-click="vm.postSignUpForm()" ng-disabled="signUpForm.$invalid">Sign up</button>
+  <button type="button" class="btn btn-default" ng-click="vm.close()">Close</button>
+</div>
+
